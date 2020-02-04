@@ -1,0 +1,16 @@
+[package]
+name = "openapi-generator-core"
+version = "0.1.0"
+authors = ["Wykiki <jmegaplay@hotmail.fr>"]
+keywords = ["openapi", "generator"]
+readme = "README.md"
+license = "MIT"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "core"
+path = "src/lib.rs"
+
+[dependencies]
