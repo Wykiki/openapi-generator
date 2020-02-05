@@ -14,3 +14,4 @@ name = "core"
 path = "src/lib.rs"
 
 [dependencies]
+openapi = { git = "https://github.com/softprops/openapi" }
