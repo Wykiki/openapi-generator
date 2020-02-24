@@ -3,6 +3,29 @@ use super::error::CodeGenError;
 use openapi::v3_0::Spec;
 use openapi::OpenApi;
 
+use std::collections::BTreeMap;
+
+struct Path {
+    operation_id: String,
+    method: String,
+    parameter: Option<Vec<String>>,
+    responses: Option<BTreeMap<ReturnCode, Response>>,
+}
+
+enum ReturnCode {
+    Ok = 200,
+    NotFound = 404,
+}
+
+struct Parameter {}
+
+struct Response {
+    content_type: u16,
+    schema: Schema,
+}
+
+struct Schema {}
+
 pub fn extract_v3(oas: OpenApi) -> Result<Spec, CodeGenError> {
     match oas {
         OpenApi::V3_0(s) => Ok(s),
