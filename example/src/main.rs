@@ -1,28 +1,22 @@
 use actix_cors::Cors;
-use actix_service::Service;
-use actix_web::{get, http::header, http::HeaderValue, web, App, HttpServer, Responder};
+use actix_web::{web, App, HttpServer};
+use std::collections::HashMap;
+use std::sync::RwLock;
 
 mod app;
 mod model;
 mod route;
 
 use app::config;
+use model::Pet;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+    let pets_db: web::Data<RwLock<HashMap<String, Pet>>> =
+        web::Data::new(RwLock::new(HashMap::new()));
     HttpServer::new(move || {
         App::new()
-            .wrap_fn(|req, srv| {
-                let fut = srv.call(req);
-                async {
-                    let mut res = fut.await?;
-                    res.headers_mut().insert(
-                        header::ACCESS_CONTROL_ALLOW_ORIGIN,
-                        HeaderValue::from_static("*"),
-                    );
-                    Ok(res)
-                }
-            })
+            .app_data(pets_db.clone())
             .wrap(
                 Cors::new()
                     .allowed_origin("All")

@@ -1,26 +1,26 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Pet {
     name: String,
     tag: String,
-    id: i64,
+    id: String,
 }
 
 impl Pet {
-    pub fn new<S: Into<String>>(name: S, tag: S, id: i64) -> Self {
+    pub fn new<S: Into<String>>(name: S, tag: S, id: S) -> Self {
         Pet {
             name: name.into(),
             tag: tag.into(),
-            id: id,
+            id: id.into(),
         }
     }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NewPet {
-    name: String,
-    tag: String,
+    pub name: String,
+    pub tag: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
